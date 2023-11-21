@@ -8,6 +8,8 @@ __pycache__/
 
 # Storage
 storage/
+*.mp4
+*.mp3
 
 # Test
 test/
