@@ -127,6 +127,3 @@ def download_video(username: str, url: str) -> None:
 
     if 'discord'   in url or url.endswith('.mp4'):
         Video(username, url).convert()
-
-
-download_video('hurfy_youtube', 'https://www.youtube.com/shorts/UhpvIHrVydA')
