@@ -1,1 +1,1 @@
-from src.video.video import Video
+from video import download_video
