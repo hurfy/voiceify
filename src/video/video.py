@@ -136,4 +136,8 @@ def download_video(username: str, url: str) -> str:
         return InstagramVideo(username, url).convert()
 
     if 'discord'   in url or url.endswith('.mp4'):
+<<<<<<< HEAD
         return Video(username, url).convert()
+=======
+        Video(username, url).convert()
+>>>>>>> 0c20e53411283e5dd8f0156c00740da4d4e12ffc
