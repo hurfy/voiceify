@@ -52,7 +52,7 @@ class Video:
         path  = abspath(join(dirname(__file__), '../../storage', f'{self._username}'))
 
         video = self._download(f'{path}.mp4')
-        VideoFileClip(video).audio.write_audiofile(f'{path}.mp3', verbose=False)
+        VideoFileClip(video).audio.write_audiofile(f'{path}.ogg', verbose=False)
 
         remove(video)
 
@@ -129,4 +129,4 @@ def download_video(username: str, url: str) -> None:
         Video(username, url).convert()
 
 
-download_video('hurfy_youtube', 'https://www.youtube.com/shorts/UhpvIHrVydA')
+download_video('hurfy-youtube', 'https://www.youtube.com/watch?v=O0PmariPZZg&ab_channel=%D0%B0%D0%BD%D0%B8%D0%BC%D0%B5%D0%BD%D0%B0%D0%B0%D0%B2%D0%B5')
