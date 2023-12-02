@@ -2,6 +2,7 @@ from selenium                      import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support    import expected_conditions
 from selenium.webdriver.common.by  import By
+from os import remove
 
 
 class FileSizeLimitError(Exception):
@@ -56,3 +57,7 @@ def fetch_download_link(site_url: str, video_url: str) -> str:
 
     return WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located
                                            ((By.CLASS_NAME, button_name))).get_attribute('href')
+
+
+def delete_file(file_name: str) -> None:
+    remove(file_name)

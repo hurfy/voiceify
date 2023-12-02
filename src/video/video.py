@@ -2,8 +2,10 @@ from src.video.helpers import FileSizeLimitError, fetch_download_link
 from os.path           import abspath, join, dirname
 from os                import remove
 from requests          import get
+from time              import sleep
 from moviepy.editor    import VideoFileClip
 from pytube            import YouTube
+from pydub import AudioSegment
 
 
 # Common ---------------------------------------------------------------------------------------------------------------
@@ -44,17 +46,25 @@ class Video:
         else:
             raise FileSizeLimitError(f'File size exceeds the allowed limit: {size}mb < 50mb')
 
-    def convert(self) -> None:
+    def convert(self) -> str:
         """
         Method of converting video to sound
-        :return: None
+        :return: str: File Path
         """
         path  = abspath(join(dirname(__file__), '../../storage', f'{self._username}'))
+        video = VideoFileClip(self._download(f'{path}.mp4'))
 
-        video = self._download(f'{path}.mp4')
-        VideoFileClip(video).audio.write_audiofile(f'{path}.ogg', verbose=False)
+        video.audio.write_audiofile(
+            f'{path}.ogg',
+            codec='libopus',
+            fps=48000,
+            nbytes=2,
+            buffersize=2000,
+            bitrate='256k'
+        )
+        video.close()
 
-        remove(video)
+        return path
 
     def get_url(self) -> str:
         """
@@ -115,18 +125,15 @@ class TiktokVideo(Video):
 
 
 # Functions ------------------------------------------------------------------------------------------------------------
-def download_video(username: str, url: str) -> None:
+def download_video(username: str, url: str) -> str:
     if 'youtube'   in url:
-        YoutubeVideo(username, url).convert()
+        return YoutubeVideo(username, url).convert()
 
     if 'tiktok'    in url:
-        TiktokVideo(username, url).convert()
+        return TiktokVideo(username, url).convert()
 
     if 'instagram' in url:
-        InstagramVideo(username, url).convert()
+        return InstagramVideo(username, url).convert()
 
     if 'discord'   in url or url.endswith('.mp4'):
-        Video(username, url).convert()
-
-
-download_video('hurfy-youtube', 'https://www.youtube.com/watch?v=O0PmariPZZg&ab_channel=%D0%B0%D0%BD%D0%B8%D0%BC%D0%B5%D0%BD%D0%B0%D0%B0%D0%B2%D0%B5')
+        return Video(username, url).convert()
