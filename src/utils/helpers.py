@@ -1,8 +1,23 @@
+from os                            import remove
 from selenium                      import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support    import expected_conditions
 from selenium.webdriver.common.by  import By
-from os import remove
+
+ERRORS = [
+       'Huh?🤨',
+       'Try writing /start😏',
+       'It\'s beautiful weather outside!🌤',
+       '404: Wit not found. Try upgrading to Wit 2.0🧠',
+       'I\'m fluent in emoji, but your message seems to be written in hieroglyphics. Any translation services '
+       'available?🤓',
+       'Error 418: I\'m a teapot. Your message is too hot to handle!🍵',
+       'Command not recognized. Did you mean to summon a unicorn?🦄',
+       'This message is brought to you by the Department of Unintelligible Communications. Can you please speak in '
+       'human?👽',
+       'Message decryption failed. Are you sure you\'re not a spy from the Secret Society of Puzzling Punctuation?🤪',
+       'Error 007: Message too spy-like. Are you James Bond in disguise?🕵️'
+]
 
 
 class FileSizeLimitError(Exception):

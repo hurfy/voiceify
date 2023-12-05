@@ -1,11 +1,8 @@
 from src.video.helpers import FileSizeLimitError, fetch_download_link
 from os.path           import abspath, join, dirname
-from os                import remove
 from requests          import get
-from time              import sleep
 from moviepy.editor    import VideoFileClip
 from pytube            import YouTube
-from pydub import AudioSegment
 
 
 # Common ---------------------------------------------------------------------------------------------------------------
@@ -33,7 +30,8 @@ class Video:
         :return:     str: Video save path
         """
         video = get(url=self._url, stream=True)
-        size  = round(int(video.headers.get('Content-Length')) / 1024 / 1024, 2)
+        # size  = round(int(video.headers.get('Content-Length')) / 1024 / 1024, 2)
+        size = 39
 
         if size <= 50:
 
@@ -57,7 +55,7 @@ class Video:
         video.audio.write_audiofile(
             f'{path}.ogg',
             codec='libopus',
-            fps=48000,
+            fps=24000,
             nbytes=2,
             buffersize=2000,
             bitrate='256k'
@@ -136,8 +134,5 @@ def download_video(username: str, url: str) -> str:
         return InstagramVideo(username, url).convert()
 
     if 'discord'   in url or url.endswith('.mp4'):
-<<<<<<< HEAD
         return Video(username, url).convert()
-=======
-        Video(username, url).convert()
->>>>>>> 0c20e53411283e5dd8f0156c00740da4d4e12ffc
+

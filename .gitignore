@@ -7,10 +7,12 @@ __pycache__/
 *.so
 
 # Storage
-storage/
+voiceify.db
+voiceify_clear.db
 *.mp4
 *.mp3
 *.ogg
+*.wav
 
 # Test
 test/
