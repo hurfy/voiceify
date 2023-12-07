@@ -5,8 +5,6 @@ from aiogram   import Bot, Dispatcher, types
 
 from aiogram.enums          import ParseMode
 from aiogram.filters        import CommandStart
-from aiogram.utils.markdown import hbold
-
 
 bot    = Bot(TELEGRAM_TOKEN, parse_mode=ParseMode.HTML)
 dp     = Dispatcher()

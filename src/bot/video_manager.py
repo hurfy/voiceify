@@ -1,8 +1,9 @@
-from src.video.helpers import FileSizeLimitError, fetch_download_link
-from os.path           import abspath, join, dirname
-from requests          import get
-from moviepy.editor    import VideoFileClip
-from pytube            import YouTube
+from src.utils      import FileSizeLimitError, fetch_download_link
+from os             import remove
+from os.path        import abspath, join, dirname
+from requests       import get
+from moviepy.editor import VideoFileClip
+from pytube         import YouTube
 
 
 # Common ---------------------------------------------------------------------------------------------------------------
@@ -60,7 +61,7 @@ class Video:
             buffersize=2000,
             bitrate='256k'
         )
-        video.close()
+        video.close(), remove(f'{path}.mp4')
 
         return path
 
@@ -133,6 +134,6 @@ def download_video(username: str, url: str) -> str:
     if 'instagram' in url:
         return InstagramVideo(username, url).convert()
 
-    if 'discord'   in url or url.endswith('.mp4'):
+    if 'cloud'   in url or url.endswith('.mp4'):
         return Video(username, url).convert()
 
