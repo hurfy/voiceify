@@ -5,6 +5,10 @@ from sys     import stdout
 
 
 async def main() -> None:
+    """
+    Main function for starting a bot
+    :return: None
+    """
     await dp.start_polling(bot)
 
 
@@ -14,4 +18,4 @@ if __name__ == "__main__":
         run(main())
 
     except KeyboardInterrupt:
-        pass
+        print('The bot has successfully completed its work!')
